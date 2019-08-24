@@ -1,0 +1,56 @@
+unit URelPacientes;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UPadrao, DB, StdCtrls, Buttons, DBCtrls, ComCtrls, ExtCtrls;
+
+type
+  TfrmRelPacientes = class(TfrmPadrao)
+    DataSource1: TDataSource;
+    DataSource2: TDataSource;
+    rgSelecao: TRadioGroup;
+    gbPeriodo: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    DateTimePicker1: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
+    gbIndividual: TGroupBox;
+    DBLookupComboBox1: TDBLookupComboBox;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    procedure rgSelecaoClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmRelPacientes: TfrmRelPacientes;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmRelPacientes.FormActivate(Sender: TObject);
+begin
+  inherited;
+  rgSelecao.ItemIndex := 0;
+  rgSelecaoClick(self);
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlMedicos, dmPrincipal.cdsMedicos,
+      'PACIENTES','NOME_PACIENTE');
+end;
+
+procedure TfrmRelPacientes.rgSelecaoClick(Sender: TObject);
+begin
+  inherited;
+  gbIndividual.Enabled := rgSelecao.ItemIndex = 1;
+  gbPeriodo.Enabled := rgSelecao.ItemIndex= 2;
+end;
+
+end.

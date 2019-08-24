@@ -1,0 +1,40 @@
+unit UConvenios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin, Mask;
+
+type
+  TfrmConvenios = class(TfrmCadastro)
+    lblDescricao: TLabel;
+    lblNome: TLabel;
+    lblCodigo: TLabel;
+    dbeCodigo: TDBEdit;
+    dbeNome: TDBEdit;
+    dbmMemo: TDBMemo;
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConvenios: TfrmConvenios;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmConvenios.FormActivate(Sender: TObject);
+begin
+  inherited;
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlConvenios, dmPrincipal.cdsConvenios,'CONVENIOS','NOME_CONVENIO');
+end;
+
+end.

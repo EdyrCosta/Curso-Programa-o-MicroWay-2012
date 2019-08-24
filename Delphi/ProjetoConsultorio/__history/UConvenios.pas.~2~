@@ -1,0 +1,27 @@
+unit UConvenios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin;
+
+type
+  TfrmConvenios = class(TfrmCadastro)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConvenios: TfrmConvenios;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+end.

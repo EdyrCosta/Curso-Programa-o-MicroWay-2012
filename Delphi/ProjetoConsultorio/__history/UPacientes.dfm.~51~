@@ -1,0 +1,615 @@
+inherited frmPacientes: TfrmPacientes
+  Caption = 'Pacientes'
+  OnActivate = FormActivate
+  ExplicitTop = -23
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label12: TLabel [0]
+    Left = 50
+    Top = 123
+    Width = 20
+    Height = 13
+    Caption = 'CEP'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  inherited tbCadastro: TToolBar
+    inherited dbnCadstro: TDBNavigator
+      Hints.Strings = ()
+    end
+    inherited btLivre: TToolButton
+      OnClick = btLivreClick
+    end
+  end
+  inherited gbxConsulta: TGroupBox
+    inherited dbgConsulta: TDBGrid
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'NOME_PACIENTE'
+          Title.Caption = 'Nome do Paciente'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CPF_PACIENTE'
+          Title.Caption = 'CPF'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DT_ANIVERSARIO_PACIENTE'
+          Title.Caption = 'Nascimento'
+          Width = 100
+          Visible = True
+        end>
+    end
+  end
+  inherited gbxCadastro: TGroupBox
+    Left = 10
+    Height = 298
+    ExplicitLeft = 10
+    ExplicitHeight = 298
+    object lblNome: TLabel
+      Left = 228
+      Top = 35
+      Width = 32
+      Height = 13
+      Caption = 'Nome'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblCodigo: TLabel
+      Left = 33
+      Top = 35
+      Width = 38
+      Height = 13
+      Caption = 'Codigo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object dbeCodigo: TDBEdit
+      Left = 86
+      Top = 32
+      Width = 121
+      Height = 21
+      DataField = 'CODIGO_PACIENTE'
+      DataSource = dsGenerico
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object dbeNome: TDBEdit
+      Left = 275
+      Top = 32
+      Width = 272
+      Height = 21
+      CharCase = ecUpperCase
+      DataField = 'NOME_PACIENTE'
+      DataSource = dsGenerico
+      TabOrder = 1
+    end
+    object PageControl1: TPageControl
+      Left = 33
+      Top = 62
+      Width = 514
+      Height = 229
+      ActivePage = TabSheet4
+      TabOrder = 2
+      object TabSheet1: TTabSheet
+        Caption = 'Dados Pessoais'
+        object Label1: TLabel
+          Left = 324
+          Top = 19
+          Width = 16
+          Height = 13
+          Caption = 'RG'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label2: TLabel
+          Left = 18
+          Top = 19
+          Width = 20
+          Height = 13
+          Caption = 'CPF'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label3: TLabel
+          Left = 18
+          Top = 91
+          Width = 64
+          Height = 13
+          Caption = 'Estado Civil'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label4: TLabel
+          Left = 227
+          Top = 59
+          Width = 113
+          Height = 13
+          Caption = 'Data de Nascimento'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label5: TLabel
+          Left = 16
+          Top = 147
+          Width = 67
+          Height = 13
+          Caption = 'Observa'#231#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label6: TLabel
+          Left = 31
+          Top = 118
+          Width = 52
+          Height = 13
+          Caption = 'Profiss'#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object dbeCPF: TDBEdit
+          Left = 57
+          Top = 16
+          Width = 153
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object dbeRG: TDBEdit
+          Left = 355
+          Top = 16
+          Width = 121
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'RG_PACIENTE'
+          DataSource = dsGenerico
+          TabOrder = 1
+        end
+        object dbeDataNascimento: TDBEdit
+          Left = 355
+          Top = 56
+          Width = 121
+          Height = 21
+          DataField = 'DT_ANIVERSARIO_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object dbeProfissao: TDBEdit
+          Left = 89
+          Top = 110
+          Width = 121
+          Height = 21
+          DataField = 'PROFISSAO_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object dbrgSexo: TDBRadioGroup
+          Left = 18
+          Top = 38
+          Width = 192
+          Height = 34
+          Caption = 'Sexo'
+          Columns = 2
+          DataField = 'SEXO_PACIENTE'
+          DataSource = dsGenerico
+          Items.Strings = (
+            'Masculino'
+            'Feminino')
+          ParentBackground = True
+          TabOrder = 6
+          Values.Strings = (
+            'M'
+            'F')
+        end
+        object dbcEstadoCivil: TDBComboBox
+          Left = 88
+          Top = 83
+          Width = 122
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'ESTADO_CIVIL_PACIENTE'
+          DataSource = dsGenerico
+          ItemHeight = 13
+          Items.Strings = (
+            'SOLTEIRO'
+            'CASADO'
+            'SEPARADO'
+            'DIVORCIADO'
+            'VI'#218'VO'
+            'UNI'#195'O EST'#193'VEL')
+          TabOrder = 4
+        end
+        object dbmObservacao: TDBMemo
+          Left = 89
+          Top = 141
+          Width = 121
+          Height = 57
+          DataField = 'OBSERVACOES_PACIENTE'
+          DataSource = dsGenerico
+          TabOrder = 5
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Contato'
+        ImageIndex = 1
+        object Label7: TLabel
+          Left = 18
+          Top = 19
+          Width = 52
+          Height = 13
+          Caption = 'Endere'#231'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label8: TLabel
+          Left = 36
+          Top = 51
+          Width = 34
+          Height = 13
+          Caption = 'Bairro'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label10: TLabel
+          Left = 50
+          Top = 113
+          Width = 20
+          Height = 13
+          Caption = 'CEP'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label11: TLabel
+          Left = 21
+          Top = 140
+          Width = 49
+          Height = 13
+          Caption = 'Telefone'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label13: TLabel
+          Left = 34
+          Top = 168
+          Width = 36
+          Height = 13
+          Caption = 'e-mail'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label14: TLabel
+          Left = 247
+          Top = 131
+          Width = 39
+          Height = 13
+          Caption = 'Celular'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label9: TLabel
+          Left = 32
+          Top = 78
+          Width = 38
+          Height = 13
+          Caption = 'Cidade'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object dbeEndereco: TDBEdit
+          Left = 76
+          Top = 16
+          Width = 397
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object dbeBairro: TDBEdit
+          Left = 76
+          Top = 48
+          Width = 397
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object dbeCEP: TDBEdit
+          Left = 76
+          Top = 105
+          Width = 153
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object dbeTelefone: TDBEdit
+          Left = 76
+          Top = 132
+          Width = 153
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object dbeEmail: TDBEdit
+          Left = 76
+          Top = 159
+          Width = 397
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 6
+        end
+        object dbeCelular: TDBEdit
+          Left = 292
+          Top = 128
+          Width = 153
+          Height = 21
+          DataField = 'CPF_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 5
+        end
+        object dblCidade: TDBLookupComboBox
+          Left = 76
+          Top = 78
+          Width = 145
+          Height = 21
+          DataField = 'CIDADE_PACIENTE'
+          DataSource = dsGenerico
+          KeyField = 'CODIGO_CIDADE'
+          ListField = 'NOME_CIDADE'
+          ListSource = dsCidade
+          TabOrder = 2
+        end
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Prontu'#225'rio'
+        ImageIndex = 2
+        object Label15: TLabel
+          Left = 18
+          Top = 19
+          Width = 81
+          Height = 13
+          Caption = 'Data Cadastro'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label16: TLabel
+          Left = 18
+          Top = 51
+          Width = 60
+          Height = 13
+          Caption = 'Prontu'#225'rio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label17: TLabel
+          Left = 254
+          Top = 19
+          Width = 85
+          Height = 13
+          Caption = 'Data Altera'#231#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object dbeDataCadastro: TDBEdit
+          Left = 105
+          Top = 16
+          Width = 144
+          Height = 21
+          DataField = 'DT_CADASTRO_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object dbeDataAlteracao: TDBEdit
+          Left = 345
+          Top = 16
+          Width = 144
+          Height = 21
+          DataField = 'DT_ALTERACAO_PACIENTE'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object dbmProntuario: TDBMemo
+          Left = 18
+          Top = 70
+          Width = 471
+          Height = 116
+          DataField = 'PRONTUARIO_PACIENTE'
+          DataSource = dsGenerico
+          TabOrder = 2
+        end
+      end
+      object TabSheet4: TTabSheet
+        Caption = 'Conv'#234'nios'
+        ImageIndex = 3
+        object DBGrid1: TDBGrid
+          Left = 13
+          Top = 16
+          Width = 477
+          Height = 161
+          DataSource = dsConvenios
+          ReadOnly = True
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'NOME_CONVENIO'
+              Title.Caption = 'Conv'#234'nio'
+              Width = 400
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+  inherited dsGenerico: TDataSource
+    DataSet = dmPrincipal.cdsPacientes
+    OnDataChange = dsGenericoDataChange
+  end
+  object dsCidade: TDataSource
+    DataSet = dmPrincipal.cdsCidades
+    Left = 408
+    Top = 216
+  end
+  object sqlConvenios: TSQLQuery
+    DataSource = dsGenerico
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'codigo_paciente'
+        ParamType = ptInput
+        Value = '-1'
+      end>
+    SQL.Strings = (
+      'SELECT nome_paciente, nome_convenio'
+      'FROM convenios_pacientes, pacientes, convenios'
+      
+        'WHERE convenios_pacientes.codigo_paciente = pacientes.codigo_pac' +
+        'iente'
+      
+        'AND convenios_pacientes.codigo_convenio = convenios.codigo_conve' +
+        'nio'
+      'AND convenios_pacientes.codigo_paciente  =:codigo_paciente')
+    SQLConnection = dmPrincipal.sqlConexaoDB
+    Left = 352
+    Top = 224
+    object sqlConveniosNOME_PACIENTE: TWideStringField
+      FieldName = 'NOME_PACIENTE'
+      Required = True
+      Size = 50
+    end
+    object sqlConveniosNOME_CONVENIO: TWideStringField
+      FieldName = 'NOME_CONVENIO'
+      Required = True
+      Size = 60
+    end
+  end
+  object dspConvenios: TDataSetProvider
+    DataSet = sqlConvenios
+    Left = 272
+    Top = 232
+  end
+  object cdsConvenios: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConvenios'
+    Left = 176
+    Top = 224
+    object cdsConveniosNOME_PACIENTE: TWideStringField
+      FieldName = 'NOME_PACIENTE'
+      Required = True
+      Size = 50
+    end
+    object cdsConveniosNOME_CONVENIO: TWideStringField
+      FieldName = 'NOME_CONVENIO'
+      Required = True
+      Size = 60
+    end
+  end
+  object dsConvenios: TDataSource
+    DataSet = cdsConvenios
+    Left = 464
+    Top = 208
+  end
+end

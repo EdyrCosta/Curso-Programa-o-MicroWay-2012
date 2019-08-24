@@ -1,0 +1,38 @@
+unit UResultado;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TfrmResultado = class(TForm)
+    lblResultado: TLabel;
+    lblAcertos: TLabel;
+    lblVRAcertos: TLabel;
+    lblErros: TLabel;
+    lblVRErros: TLabel;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmResultado: TfrmResultado;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmResultado.FormShow(Sender: TObject);
+begin
+  lblVRAcertos.Caption := IntToStr(Acertos);
+  lblVRErros.Caption := IntToStr(Erros);
+  Acertos := 0;
+  Erros := 0;
+end;
+
+end.

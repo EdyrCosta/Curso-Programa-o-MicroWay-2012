@@ -1,0 +1,33 @@
+unit UConveniosPacientes;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin;
+
+type
+  TfrmConveniosPacientes = class(TfrmCadastro)
+    Label1: TLabel;
+    Label2: TLabel;
+    dblConvenio: TDBLookupComboBox;
+    dblPaciente: TDBLookupComboBox;
+    dsPacientes: TDataSource;
+    dsConvenios: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConveniosPacientes: TfrmConveniosPacientes;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+end.

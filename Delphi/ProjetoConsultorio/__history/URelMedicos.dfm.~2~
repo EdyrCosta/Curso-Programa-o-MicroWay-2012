@@ -1,0 +1,9 @@
+inherited fmrRelMedicos: TfmrRelMedicos
+  Caption = 'fmrRelMedicos'
+  ExplicitWidth = 347
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited dsGenerico: TDataSource
+    DataSet = dmPrincipal.cdsMedicos
+  end
+end

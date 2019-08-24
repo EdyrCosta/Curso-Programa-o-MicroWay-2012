@@ -1,0 +1,126 @@
+unit URelConsultas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UPadrao, DB, StdCtrls, Buttons, DBCtrls, ComCtrls, ExtCtrls;
+
+type
+  TfrmPadrao1 = class(TfrmPadrao)
+    rgSelecao: TRadioGroup;
+    gbPeriodo: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    DateTimePicker1: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
+    gbIndividual: TGroupBox;
+    DBLookupComboBox1: TDBLookupComboBox;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    procedure rgSelecaoClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPadrao1: TfrmPadrao1;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmPadrao1.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+  DMpRINCIPAL.sqlRelConsultas.Close;
+  dmPrincipal.sqlRelConsultas.SQL.Clear;
+  dmPrincipal.sqlRelConsultas.SQL.Add('SELECT DATA_CONSULTA, NOME_PACIENTE, NOME_MEDICO, NOME_CONVENIO');
+  dmPrincipal.sqlRelConsultas.SQL.Add('FROM CONSULTAS');
+  dmPrincipal.sqlRelConsultas.SQL.Add('LEFT JOIN PACIENTE ON (CONSULTAS.CODIGO_PACIENTE = PACIENTES.CODIGO_PACIENTE)');
+  dmPrincipal.sqlRelConsultas.SQL.Add('LEFT JOIN MEDICOS ON (CONSULTAS.CODIGO_MEDICO = MEDICOS.CODIGO_MEDICO)');
+  dmPrincipal.sqlRelConsultas.SQL.Add('LEFT JOIN CONVENIOS ON (CONSULAS.CODIGO_CONVENIO = CONVENIOS.CODIGO_CONVENIO)');
+  dmPrincipal.sqlRelConsultas.SQL.Add('WHERE DATA_CONSULTA BETWEEN ' + CHR(39) + DateToStr(DateTimePicker1.Date) + CHR(39));
+  dmPrincipal.sqlRelConsultas.SQL.Add('AND ' + CHR(39) + DateToStr(DateTimePicker2.Date) + CHR(39));
+
+  CASE rgSelecao.ItemIndex = 1 OF
+  1: dmPrincipal.sqlRelConsultas.SQL.Add('AND CONSULTAS.CODIGO_MEDICO=' +
+      dmPrincipal.cdsMedicosCODIGO_MEDICO.AsString);
+
+  2: dmPrincipal.sqlRelMedicos.SQL.Add('AND CONSULTAS.CODIGO_PACIENTE=' +
+      dmPrincipal.cdsPacientesCODIGO_PACIENTE.AsString);
+
+  3: dmPrincipal.sqlRelConsultas.SQL.Add('AND CONSULTAS.CODIGO_CONVENIO=' +
+      dmPrincipal.cdsConveniosCODIGO_CONVENIO.AsString);
+  END;
+  dmPrincipal.RvPrjConsultorio.ExecuteReport('rptMedicos');
+end;
+
+procedure TfrmPadrao1.FormActivate(Sender: TObject);
+begin
+  inherited;
+  rgSelecao.ItemIndex := 0;
+  rgSelecaoClick(self);
+end;
+
+procedure TfrmPadrao1.rgSelecaoClick(Sender: TObject);
+begin
+  inherited;
+   case rgSelecao.ItemIndex of
+    0:begin
+      gbIndividual.Caption := 'Geral';
+    end;
+
+    1:begin
+      DBLookupComboBox1.ListSource := nil;
+      DBLookupComboBox1.ListField := 'NOME_MEDICO';
+      DBLookupComboBox1.KeyField := 'CODIGO_MEDICO';
+
+      gbIndividual.Caption = 'Médico';
+      dsGenerico.DataSet := dmPrincipal.cdsMedicos;
+      DBLookupComboBox1.ListSource := dsGenerico;
+      DBLookupComboBox1.ListField := 'NOME_MEDICO';
+      DBLookupComboBox1.KeyField := 'CODIGO_MEDICO';
+      dmPrincipal.CarregarTodos(dmPrincipal.sqlMedicos,dmPrincipal.cdsMedicos,
+        'MEDICOS','NOME_MEDICO');
+    end;
+
+    2:BEGIN
+      DBLookupComboBox1.ListSource := nil;
+      DBLookupComboBox1.ListField := 'NOME_PACIENTE';
+      DBLookupComboBox1.KeyField := 'CODIGO_PACIENTE';
+
+      gbIndividual.Caption = 'Paciente';
+      dsGenerico.DataSet := dmPrincipal.cdsPacientes;
+      DBLookupComboBox1.ListSource := dsGenerico;
+      DBLookupComboBox1.ListField := 'NOME_PACIENTE';
+      DBLookupComboBox1.KeyField := 'CODIGO_PACIENTE';
+      dmPrincipal.CarregarTodos(dmPrincipal.sqlPacientes,dmPrincipal.cdsPacientes,
+        'PACIENTES','NOME_PACIENTE');
+    END;
+
+    3:BEGIN
+      DBLookupComboBox1.ListSource := nil;
+      DBLookupComboBox1.ListField := 'NOME_CONVENIO';
+      DBLookupComboBox1.KeyField := 'CODIGO_CONVENIO';
+
+      gbIndividual.Caption = 'Convenios';
+      dsGenerico.DataSet := dmPrincipal.cdsConvenios;
+      DBLookupComboBox1.ListSource := dsGenerico;
+      DBLookupComboBox1.ListField := 'NOME_CONVENIO';
+      DBLookupComboBox1.KeyField := 'CODIGO_CONVENIO';
+      dmPrincipal.CarregarTodos(dmPrincipal.sqlConvenios,dmPrincipal.cdsConvenios,
+        'CONVENIOS','CODIGO_CONVENIOS');
+    END;
+   end;
+
+   gbIndividual.Enabled := rgSelecao.ItemIndex <> 0;
+end;
+
+end.

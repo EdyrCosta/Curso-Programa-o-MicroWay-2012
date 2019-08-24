@@ -1,0 +1,128 @@
+unit USpeedCalc;
+
+interface
+
+uses
+  Windows, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, GIFImg, ExtCtrls, Buttons;
+
+type
+  TfrmPrincipal = class(TForm)
+    lblNome: TLabel;
+    lblQuestao: TLabel;
+    lblResultado: TLabel;
+    lblResposta: TLabel;
+    lblValor1: TLabel;
+    lblOperador: TLabel;
+    lblValor2: TLabel;
+    lblVrResposta: TLabel;
+    imgSemaforo: TImage;
+    btnIniciar: TSpeedButton;
+    imgVerde: TImage;
+    imgAmarelo: TImage;
+    imgVermelho: TImage;
+    edtResultado: TEdit;
+    Timer1: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure btnIniciarClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+  //variáveis
+  Valor1, Valor2, OP, Segundos : Integer;
+  operadores : array[0..3] of Char = ('+','-','*','/');
+implementation
+
+{$R *.dfm}
+function Operador (OP : Integer): Char;
+begin
+  case OP of
+    0: Operador := Operadores[0];
+    1: Operador := Operadores[1];
+    2: Operador := Operadores[2];
+    3: Operador := Operadores[3];
+  end;
+end;
+
+function Resultado(Valor1, Valor2 : Real; OP : Integer) : Real;
+begin
+  case OP of
+    0: Resultado := Valor1 + Valor2;
+    1: Resultado := Valor1 - Valor2;
+    2: Resultado := Valor1 * Valor2;
+    3: Resultado := Valor1 / Valor2;
+  end;
+end;
+
+procedure TfrmPrincipal.btnIniciarClick(Sender: TObject);
+begin
+  //ativa o timer
+  Timer1.Enabled := True;
+  //gera números randômicos
+  Valor1 := Random(100);
+  valor2 := Random(100);
+  OP := Random(4);
+  //atribui os valores a lvlValor1 e lblValor2
+  lblValor1.Caption := IntToStr(Valor1);
+  lblOperador.Caption := Operador(OP);
+  lblValor2.Caption := IntToStr(Valor2);
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  imgSemaforo.Visible := True;
+  imgVerde.Visible := False;
+  imgAmarelo.Visible := False;
+  imgVermelho.Visible := False;
+end;
+
+procedure TfrmPrincipal.Timer1Timer(Sender: TObject);
+begin
+  if (Segundos < 5) then
+  begin
+    imgSemaforo.Visible := False;
+    imgVerde.Visible := True;
+    imgAmarelo.Visible := False;
+    imgVermelho.Visible := False;
+  end
+  else if (Segundos > 5) and (Segundos < 10) then
+  begin
+    imgSemaforo.Visible := False;
+    imgVerde.Visible := False;
+    imgAmarelo.Visible := True;
+    imgVermelho.Visible := False;
+  end
+  else if(Segundos = 10) then
+  begin
+    imgSemaforo.Visible := False;
+    imgVerde.Visible := False;
+    imgAmarelo.Visible := False;
+    imgVermelho.Visible := True;
+  end;
+
+  //incrementa a variável segundos
+  Segundos := Segundos + 1;
+end;
+
+end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

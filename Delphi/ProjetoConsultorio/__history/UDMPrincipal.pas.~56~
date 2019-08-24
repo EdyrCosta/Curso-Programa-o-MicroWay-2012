@@ -1,0 +1,335 @@
+unit UDMPrincipal;
+
+interface
+
+uses
+  SysUtils, Classes, WideStrings, DBXOracle, DB, SqlExpr, FMTBcd, DBClient,
+  Provider, RpBase, RpSystem, RpDefine, RpRave, RpCon, RpConDS;
+
+type
+  TdmPrincipal = class(TDataModule)
+    sqlConexaoDB: TSQLConnection;
+    sqlEstados: TSQLQuery;
+    dspEstados: TDataSetProvider;
+    cdsEstados: TClientDataSet;
+    sqlEstadosCODIGO_ESTADO: TFMTBCDField;
+    sqlEstadosNOME_ESTADO: TWideStringField;
+    sqlEstadosSIGLA_ESTADO: TWideStringField;
+    cdsEstadosCODIGO_ESTADO: TFMTBCDField;
+    cdsEstadosNOME_ESTADO: TWideStringField;
+    cdsEstadosSIGLA_ESTADO: TWideStringField;
+    sqlCidades: TSQLQuery;
+    dspCidades: TDataSetProvider;
+    cdsCidades: TClientDataSet;
+    sqlCidadesCODIGO_CIDADE: TFMTBCDField;
+    sqlCidadesESTADO_CIDADE: TFMTBCDField;
+    sqlCidadesNOME_CIDADE: TWideStringField;
+    cdsCidadesCODIGO_CIDADE: TFMTBCDField;
+    cdsCidadesESTADO_CIDADE: TFMTBCDField;
+    cdsCidadesNOME_CIDADE: TWideStringField;
+    sqlConvenios: TSQLQuery;
+    dspConvenios: TDataSetProvider;
+    cdsConvenios: TClientDataSet;
+    sqlEspecializacoes: TSQLQuery;
+    dspEspecializacoes: TDataSetProvider;
+    cdsEspecializacoes: TClientDataSet;
+    sqlConveniosCODIGO_CONVENIO: TFMTBCDField;
+    sqlConveniosNOME_CONVENIO: TWideStringField;
+    sqlConveniosDESCRICAO_CONVENIO: TWideStringField;
+    sqlPacientes: TSQLQuery;
+    dspPacientes: TDataSetProvider;
+    cdsPacientes: TClientDataSet;
+    sqlPacientesCODIGO_PACIENTE: TFMTBCDField;
+    sqlPacientesCPF_PACIENTE: TWideStringField;
+    sqlPacientesRG_PACIENTE: TWideStringField;
+    sqlPacientesNOME_PACIENTE: TWideStringField;
+    sqlPacientesENDERECO_PACIENTE: TWideStringField;
+    sqlPacientesBAIRRO_PACIENTE: TWideStringField;
+    sqlPacientesCIDADE_PACIENTE: TFMTBCDField;
+    sqlPacientesCEP_PACIENTE: TWideStringField;
+    sqlPacientesTELEFONE_PACIENTE: TWideStringField;
+    sqlPacientesCELULAR_PACIENTE: TWideStringField;
+    sqlPacientesEMAIL_PACIENTE: TWideStringField;
+    sqlPacientesOBSERVACOES_PACIENTE: TWideStringField;
+    sqlPacientesDT_CADASTRO_PACIENTE: TSQLTimeStampField;
+    sqlPacientesDT_ALTERACAO_PACIENTE: TSQLTimeStampField;
+    sqlPacientesDT_ANIVERSARIO_PACIENTE: TSQLTimeStampField;
+    sqlPacientesSEXO_PACIENTE: TWideStringField;
+    sqlPacientesESTADO_CIVIL_PACIENTE: TWideStringField;
+    sqlPacientesPROFISSAO_PACIENTE: TWideStringField;
+    sqlPacientesPRONTUARIO_PACIENTE: TWideStringField;
+    cdsPacientesCODIGO_PACIENTE: TFMTBCDField;
+    cdsPacientesCPF_PACIENTE: TWideStringField;
+    cdsPacientesRG_PACIENTE: TWideStringField;
+    cdsPacientesNOME_PACIENTE: TWideStringField;
+    cdsPacientesENDERECO_PACIENTE: TWideStringField;
+    cdsPacientesBAIRRO_PACIENTE: TWideStringField;
+    cdsPacientesCIDADE_PACIENTE: TFMTBCDField;
+    cdsPacientesCEP_PACIENTE: TWideStringField;
+    cdsPacientesTELEFONE_PACIENTE: TWideStringField;
+    cdsPacientesCELULAR_PACIENTE: TWideStringField;
+    cdsPacientesEMAIL_PACIENTE: TWideStringField;
+    cdsPacientesOBSERVACOES_PACIENTE: TWideStringField;
+    cdsPacientesDT_CADASTRO_PACIENTE: TSQLTimeStampField;
+    cdsPacientesDT_ALTERACAO_PACIENTE: TSQLTimeStampField;
+    cdsPacientesDT_ANIVERSARIO_PACIENTE: TSQLTimeStampField;
+    cdsPacientesSEXO_PACIENTE: TWideStringField;
+    cdsPacientesESTADO_CIVIL_PACIENTE: TWideStringField;
+    cdsPacientesPROFISSAO_PACIENTE: TWideStringField;
+    cdsPacientesPRONTUARIO_PACIENTE: TWideStringField;
+    sqlMedicos: TSQLQuery;
+    dspMedicos: TDataSetProvider;
+    cdsMedicos: TClientDataSet;
+    sqlMedicosCODIGO_MEDICO: TFMTBCDField;
+    sqlMedicosCPF_MEDICO: TWideStringField;
+    sqlMedicosRG_MEDICO: TWideStringField;
+    sqlMedicosCRM_MEDICO: TWideStringField;
+    sqlMedicosNOME_MEDICO: TWideStringField;
+    sqlMedicosENDERECO_MEDICO: TWideStringField;
+    sqlMedicosBAIRRO_MEDICO: TWideStringField;
+    sqlMedicosCIDADE_MEDICO: TFMTBCDField;
+    sqlMedicosCEP_MEDICO: TWideStringField;
+    sqlMedicosTELEFONE_MEDICO: TWideStringField;
+    sqlMedicosCELULAR_MEDICO: TWideStringField;
+    sqlMedicosEMAIL_MEDICO: TWideStringField;
+    sqlMedicosOBSERVACOES_MEDICO: TWideStringField;
+    sqlMedicosDT_CADASTRO_MEDICO: TSQLTimeStampField;
+    sqlMedicosDT_ALTERACOES_MEDICO: TSQLTimeStampField;
+    sqlMedicosDT_NASCIMENTO_MEDICO: TSQLTimeStampField;
+    sqlMedicosSEXO_MEDICO: TWideStringField;
+    sqlMedicosESTADO_CIVIL_MEDICO: TWideStringField;
+    cdsMedicosCODIGO_MEDICO: TFMTBCDField;
+    cdsMedicosCPF_MEDICO: TWideStringField;
+    cdsMedicosRG_MEDICO: TWideStringField;
+    cdsMedicosCRM_MEDICO: TWideStringField;
+    cdsMedicosNOME_MEDICO: TWideStringField;
+    cdsMedicosENDERECO_MEDICO: TWideStringField;
+    cdsMedicosBAIRRO_MEDICO: TWideStringField;
+    cdsMedicosCIDADE_MEDICO: TFMTBCDField;
+    cdsMedicosCEP_MEDICO: TWideStringField;
+    cdsMedicosTELEFONE_MEDICO: TWideStringField;
+    cdsMedicosCELULAR_MEDICO: TWideStringField;
+    cdsMedicosEMAIL_MEDICO: TWideStringField;
+    cdsMedicosOBSERVACOES_MEDICO: TWideStringField;
+    cdsMedicosDT_CADASTRO_MEDICO: TSQLTimeStampField;
+    cdsMedicosDT_ALTERACOES_MEDICO: TSQLTimeStampField;
+    cdsMedicosDT_NASCIMENTO_MEDICO: TSQLTimeStampField;
+    cdsMedicosSEXO_MEDICO: TWideStringField;
+    cdsMedicosESTADO_CIVIL_MEDICO: TWideStringField;
+    sqlConveniosPacientes: TSQLQuery;
+    dspConeviosPacientes: TDataSetProvider;
+    cdsConeviosPacientes: TClientDataSet;
+    sqlConveniosPacientesCODIGO_CONVENIO: TFMTBCDField;
+    sqlConveniosPacientesCODIGO_PACIENTE: TFMTBCDField;
+    cdsConeviosPacientesCODIGO_CONVENIO: TFMTBCDField;
+    cdsConeviosPacientesCODIGO_PACIENTE: TFMTBCDField;
+    sqlEspecializacoesMedicas: TSQLQuery;
+    dspEspecializacoesMedicas: TDataSetProvider;
+    cdsEspecializacoesMedicas: TClientDataSet;
+    sqlEspecializacoesMedicasCODIGO_ESPECIALIZACAO: TFMTBCDField;
+    sqlEspecializacoesMedicasCODIGO_MEDICO: TFMTBCDField;
+    cdsEspecializacoesMedicasCODIGO_ESPECIALIZACAO: TFMTBCDField;
+    cdsEspecializacoesMedicasCODIGO_MEDICO: TFMTBCDField;
+    sqlConsultas: TSQLQuery;
+    dspConsultas: TDataSetProvider;
+    cdsConsultas: TClientDataSet;
+    sqlConsultasCODIGO_CONSULTA: TFMTBCDField;
+    sqlConsultasCODIGO_PACIENTE: TFMTBCDField;
+    sqlConsultasCODIGO_MEDICO: TFMTBCDField;
+    sqlConsultasCODIGO_CONVENIO: TFMTBCDField;
+    sqlConsultasDATA_CONSULTA: TSQLTimeStampField;
+    cdsConsultasCODIGO_CONSULTA: TFMTBCDField;
+    cdsConsultasCODIGO_PACIENTE: TFMTBCDField;
+    cdsConsultasCODIGO_MEDICO: TFMTBCDField;
+    cdsConsultasCODIGO_CONVENIO: TFMTBCDField;
+    cdsConsultasDATA_CONSULTA: TSQLTimeStampField;
+    sqlEspecializacoesCODIGO_ESPECIALIZACAO: TFMTBCDField;
+    sqlEspecializacoesNOME_ESPECIALIZACAO: TWideStringField;
+    sqlEspecializacoesDESCRICAO_ESPECIALIZACAO: TWideStringField;
+    cdsConveniosCODIGO_CONVENIO: TFMTBCDField;
+    cdsConveniosNOME_CONVENIO: TWideStringField;
+    cdsConveniosDESCRICAO_CONVENIO: TWideStringField;
+    cdsEspecializacoesCODIGO_CONVENIO: TFMTBCDField;
+    cdsEspecializacoesCODIGO_PACIENTE: TFMTBCDField;
+    RvPrjConsultorio: TRvProject;
+    RvSysConsultorio: TRvSystem;
+    RvDsEstados: TRvDataSetConnection;
+    RvDsConvenios: TRvDataSetConnection;
+    RvDsEspecializacoes: TRvDataSetConnection;
+    RvDsCidades: TRvDataSetConnection;
+    sqlRelCidades: TSQLQuery;
+    cdsRelCidades: TClientDataSet;
+    dspRelCidades: TDataSetProvider;
+    procedure cdsEstadosAfterDelete(DataSet: TDataSet);
+    procedure cdsEstadosAfterPost(DataSet: TDataSet);
+    procedure sqlConexaoDBAfterConnect(Sender: TObject);
+    procedure cdsCidadesAfterDelete(DataSet: TDataSet);
+    procedure cdsCidadesAfterPost(DataSet: TDataSet);
+    procedure cdsConveniosAfterDelete(DataSet: TDataSet);
+    procedure cdsConveniosAfterPost(DataSet: TDataSet);
+    procedure cdsEspecializacoesAfterPost(DataSet: TDataSet);
+    procedure cdsEspecializacoesAfterDelete(DataSet: TDataSet);
+    procedure cdsPacientesAfterDelete(DataSet: TDataSet);
+    procedure cdsPacientesAfterPost(DataSet: TDataSet);
+    procedure cdsMedicosAfterPost(DataSet: TDataSet);
+    procedure cdsMedicosAfterDelete(DataSet: TDataSet);
+    procedure cdsConeviosPacientesAfterDelete(DataSet: TDataSet);
+    procedure cdsConeviosPacientesAfterPost(DataSet: TDataSet);
+    procedure cdsConsultasAfterDelete(DataSet: TDataSet);
+    procedure cdsConsultasAfterPost(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function CarregarTodos(ASqlQuery : TSQLQuery; ADataSet : TClientDataSet;
+    ATabela, AOrderBy : string) : Boolean;
+  end;
+
+var
+  dmPrincipal: TdmPrincipal;
+
+implementation
+
+{$R *.dfm}
+function TdmPrincipal.CarregarTodos(ASqlQuery : TSQLQuery;
+          ADataSet : TClientDataSet; ATabela, AOrderBy : string) : Boolean;
+var
+  I, J, Conta : Integer;
+  ListaCampos : TStrings;
+begin
+  with ASqlQuery, ADataSet do
+  begin
+    ADataSet.Close;
+    ListaCampos := TStringList.Create;
+    GetFieldNames(ListaCampos);
+    Params.Clear;
+    SQL.Clear;
+    SQL.Add('SELECT');
+    for I := 0 to ListaCampos.Count - 1 do
+      if I = ListaCampos.Count - 1 then
+        SQL.Add('   ' + ListaCampos[I])
+      else
+        SQL.Add('   ' + ListaCampos[I] + ',');
+      SQL.Add('FROM ' + UpperCase(ATabela));
+      {Monta o Orderby}
+      if Trim(AOrderBy) <> '' then
+      begin
+        SQL.Add('ORDER BY');
+        Conta := 0;
+        J := 1;
+        for I:= 1 to Length(AOrderBy) do
+        begin
+          Inc(Conta);
+          if(AOrderBy[I] = ':') or (I = Length(AOrderBy)) then
+          begin
+            if I < Length(AOrderBy) then
+              SQL.Add('   ' + Copy(AOrderBy, J, Conta - 1) + ',')
+          else
+            SQL.Add('   ' + Copy(AOrderBy, J, Conta));
+
+          Conta := 0;
+          J := I + 1;
+          end;
+        end;
+      end;
+      ListaCampos.Free;
+  end;
+  ADataSet.FetchParams;
+  ADataSet.Open;
+  Result := not ADataSet.IsEmpty;
+end;
+
+procedure TdmPrincipal.cdsCidadesAfterDelete(DataSet: TDataSet);
+begin
+  cdsCidades.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsCidadesAfterPost(DataSet: TDataSet);
+begin
+  cdsCidades.ApplyUpdates(0);
+  cdsCidades.Refresh;
+end;
+
+procedure TdmPrincipal.cdsConeviosPacientesAfterDelete(DataSet: TDataSet);
+begin
+  cdsConeviosPacientes.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsConeviosPacientesAfterPost(DataSet: TDataSet);
+begin
+  cdsConeviosPacientes.ApplyUpdates(0);
+  cdsConeviosPacientes.Refresh;
+end;
+
+procedure TdmPrincipal.cdsConsultasAfterDelete(DataSet: TDataSet);
+begin
+  cdsConsultas.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsConsultasAfterPost(DataSet: TDataSet);
+begin
+  cdsConsultas.ApplyUpdates(0);
+  cdsConsultas.Refresh;
+end;
+
+procedure TdmPrincipal.cdsConveniosAfterDelete(DataSet: TDataSet);
+begin
+  cdsConvenios.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsConveniosAfterPost(DataSet: TDataSet);
+begin
+  cdsConvenios.ApplyUpdates(0);
+  cdsConvenios.Refresh;
+end;
+
+procedure TdmPrincipal.cdsEspecializacoesAfterDelete(DataSet: TDataSet);
+begin
+  cdsEspecializacoes.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsEspecializacoesAfterPost(DataSet: TDataSet);
+begin
+  cdsEspecializacoes.ApplyUpdates(0);
+  cdsEspecializacoes.Refresh;
+end;
+
+procedure TdmPrincipal.cdsEstadosAfterDelete(DataSet: TDataSet);
+begin
+  cdsEstados.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsEstadosAfterPost(DataSet: TDataSet);
+begin
+  cdsEstados.ApplyUpdates(0);
+  cdsEstados.Refresh;
+end;
+
+procedure TdmPrincipal.cdsMedicosAfterDelete(DataSet: TDataSet);
+begin
+  cdsMedicos.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsMedicosAfterPost(DataSet: TDataSet);
+begin
+  cdsMedicos.ApplyUpdates(0);
+  cdsMedicos.Refresh;
+end;
+
+procedure TdmPrincipal.cdsPacientesAfterDelete(DataSet: TDataSet);
+begin
+  cdsPacientes.ApplyUpdates(0);
+end;
+
+procedure TdmPrincipal.cdsPacientesAfterPost(DataSet: TDataSet);
+begin
+  cdsPacientes.ApplyUpdates(0);
+  cdsPacientes.Refresh;
+end;
+
+procedure TdmPrincipal.sqlConexaoDBAfterConnect(Sender: TObject);
+begin
+  dmPrincipal.sqlConexaoDB.ExecuteDirect('alter session set nls_numeric_characters = ".,"');
+end;
+
+end.

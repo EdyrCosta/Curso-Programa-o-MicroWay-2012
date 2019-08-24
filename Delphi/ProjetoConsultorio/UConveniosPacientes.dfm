@@ -1,0 +1,83 @@
+inherited frmConveniosPacientes: TfrmConveniosPacientes
+  Caption = 'Conv'#234'nios por Pacientes'
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited tbCadastro: TToolBar
+    inherited dbnCadstro: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited gbxConsulta: TGroupBox
+    inherited dbgConsulta: TDBGrid
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'CODIGO_PACIENTE'
+          Title.Caption = 'Codigo do Paciente'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CODIGO_CONVENIO'
+          Title.Caption = 'Codigo do Convenio'
+          Visible = True
+        end>
+    end
+  end
+  inherited gbxCadastro: TGroupBox
+    Left = 10
+    ExplicitLeft = 10
+    object Label1: TLabel
+      Left = 40
+      Top = 48
+      Width = 41
+      Height = 13
+      Caption = 'Paciente'
+    end
+    object Label2: TLabel
+      Left = 40
+      Top = 98
+      Width = 45
+      Height = 13
+      Caption = 'Conv'#234'nio'
+    end
+    object dblConvenio: TDBLookupComboBox
+      Left = 90
+      Top = 96
+      Width = 344
+      Height = 21
+      DataField = 'CODIGO_CONVENIO'
+      DataSource = dsConvenios
+      KeyField = 'CODIGO_CONVENIO'
+      ListField = 'NOME_CONVENIO'
+      ListSource = dsConvenios
+      TabOrder = 0
+    end
+    object dblPaciente: TDBLookupComboBox
+      Left = 85
+      Top = 45
+      Width = 350
+      Height = 21
+      DataField = 'CODIGO_PACIENTE'
+      DataSource = dsPacientes
+      KeyField = 'CODIGO_PACIENTE'
+      ListField = 'NOME_PACIENTE'
+      ListSource = dsPacientes
+      TabOrder = 1
+    end
+  end
+  inherited dsGenerico: TDataSource
+    DataSet = dmPrincipal.cdsConeviosPacientes
+  end
+  object dsPacientes: TDataSource
+    DataSet = dmPrincipal.cdsPacientes
+    Left = 360
+    Top = 272
+  end
+  object dsConvenios: TDataSource
+    DataSet = dmPrincipal.cdsConvenios
+    Left = 440
+    Top = 272
+  end
+end

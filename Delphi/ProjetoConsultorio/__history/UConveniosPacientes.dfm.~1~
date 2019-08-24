@@ -1,0 +1,10 @@
+inherited frmConveniosPacientes: TfrmConveniosPacientes
+  Caption = 'Conv'#234'nios por Pacientes'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited tbCadastro: TToolBar
+    inherited dbnCadstro: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+end

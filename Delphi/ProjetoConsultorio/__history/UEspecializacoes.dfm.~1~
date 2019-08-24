@@ -1,0 +1,10 @@
+inherited frmEspecializacoes: TfrmEspecializacoes
+  Caption = 'Especializa'#231#245'es'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited tbCadastro: TToolBar
+    inherited dbnCadstro: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+end

@@ -1,0 +1,44 @@
+unit URelMedicos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UPadrao, DB, StdCtrls, Buttons, ComCtrls, DBCtrls, ExtCtrls;
+
+type
+  TfmrRelMedicos = class(TfrmPadrao)
+    rgSelecao: TRadioGroup;
+    gbPeriodo: TGroupBox;
+    gbIndividual: TGroupBox;
+    DBLookupComboBox1: TDBLookupComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    DateTimePicker1: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    procedure rgSelecaoClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmrRelMedicos: TfmrRelMedicos;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfmrRelMedicos.rgSelecaoClick(Sender: TObject);
+begin
+  inherited;
+  gbIndividual.Enabled := rgSelecao.ItemIndex = 1;
+  gbPeriodo.Enabled := rgSelecao.ItemIndex = 2;
+end;
+
+end.

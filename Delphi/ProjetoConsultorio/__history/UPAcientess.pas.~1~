@@ -1,0 +1,25 @@
+unit UPAcientes;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin;
+
+type
+  TfrmPacientes = class(TfrmCadastro)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPacientes: TfrmPacientes;
+
+implementation
+
+{$R *.dfm}
+
+end.

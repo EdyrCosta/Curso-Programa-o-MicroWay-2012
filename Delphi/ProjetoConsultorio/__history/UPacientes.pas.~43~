@@ -1,0 +1,145 @@
+unit UPacientes;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin, Mask, FMTBcd, SqlExpr, DBClient, Provider;
+
+type
+  TfrmPacientes = class(TfrmCadastro)
+    dbeCodigo: TDBEdit;
+    dbeNome: TDBEdit;
+    lblNome: TLabel;
+    lblCodigo: TLabel;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    dbeCPF: TDBEdit;
+    dbeRG: TDBEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    dbeDataNascimento: TDBEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    dbeProfissao: TDBEdit;
+    dbrgSexo: TDBRadioGroup;
+    dbcEstadoCivil: TDBComboBox;
+    dbmObservacao: TDBMemo;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    dbeEndereco: TDBEdit;
+    dbeBairro: TDBEdit;
+    dbeCEP: TDBEdit;
+    dbeTelefone: TDBEdit;
+    dbeEmail: TDBEdit;
+    dbeCelular: TDBEdit;
+    dsCidade: TDataSource;
+    Label9: TLabel;
+    dblCidade: TDBLookupComboBox;
+    TabSheet3: TTabSheet;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    dbeDataCadastro: TDBEdit;
+    dbeDataAlteracao: TDBEdit;
+    dbmProntuario: TDBMemo;
+    TabSheet4: TTabSheet;
+    sqlConvenios: TSQLQuery;
+    dspConvenios: TDataSetProvider;
+    cdsConvenios: TClientDataSet;
+    dsConvenios: TDataSource;
+    cdsConveniosNOME_PACIENTE: TWideStringField;
+    cdsConveniosNOME_CONVENIO: TWideStringField;
+    sqlConveniosNOME_PACIENTE: TWideStringField;
+    sqlConveniosNOME_CONVENIO: TWideStringField;
+    DBGrid1: TDBGrid;
+    procedure dsGenericoDataChange(Sender: TObject; Field: TField);
+    procedure FormActivate(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+    procedure btSalvarClick(Sender: TObject);
+    procedure sbtPesquisarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPacientes: TfrmPacientes;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmPacientes.btNovoClick(Sender: TObject);
+begin
+  inherited;
+  dsGenerico.DataSet.FieldByName('CODIGO_PACIENTE').AsInteger := 0;
+  dbeNome.SetFocus;
+  PageControl1.ActivePageIndex := 0;
+end;
+
+procedure TfrmPacientes.btSalvarClick(Sender: TObject);
+begin
+  inherited;
+  dbeCodigo.SetFocus;
+end;
+
+procedure TfrmPacientes.dsGenericoDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  cdsConvenios.Close;
+  sqlConvenios.Params[0].AsInteger := dmPrincipal.cdsPacientesCODIGO_PACIENTE.AsInteger;
+  sqlConvenios.ExecSQL();
+  cdsConvenios.Open;
+end;
+
+procedure TfrmPacientes.FormActivate(Sender: TObject);
+begin
+  inherited;
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlPacientes, dmPrincipal.cdsPacientes, 'PACIENTES', 'NOME_PACIENTE');
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlCidades, dmPrincipal.cdsCidades, 'CIDADES', 'NOME_CIDADE');
+  PageControl1.ActivePageIndex := 0;
+end;
+
+procedure TfrmPacientes.sbtPesquisarClick(Sender: TObject);
+var campo : string;
+begin
+  inherited;
+  dmPrincipal.cdsPacientes.Close;
+  dmPrincipal.sqlPacientes.SQL.Clear;
+  dmPrincipal.sqlPacientes.Params.Clear;
+  dmPrincipal.sqlPacientes.SQL.Add('SELECT * FROM PACIENTES WHERE ');
+
+  CAMPO := UpperCase(cbxConsulta.Items[cbxConsulta.ItemIndex]);
+
+  case cbxTipoConsulta.ItemIndex of
+    0: begin
+      if TipoDado = 1
+        then dmPrincipal.sqlPacientes.sql.Add(campo + ' = ' + edtConsulta.Text);
+      if TipoDado = 2
+        then dmPrincipal.sqlPacientes.SQL.Add(campo + ' LIKE ' + CHR(39) + edtConsulta.Text + CHR(39));
+      if TipoDado = 3
+        then dmPrincipal.sqlPacientes.SQL.Add(campo + ' = ' + CHR(39) + edtConsulta.Text + CHR(39));
+    end;
+    1: dmPrincipal.sqlPacientes.SQL.Add(campo + ' LIKE ' + CHR(39) + UpperCase(edtConsulta.Text) + '%' + CHR(39));
+    2: dmPrincipal.sqlPacientes.SQL.Add(campo + ' LIKE ' + CHR(39) + '%' + UpperCase(edtConsulta.Text) + '%' + CHR(39));
+  end;
+
+  dmPrincipal.cdsPacientes.Open;
+  if dmPrincipal.cdsPacientes.IsEmpty
+    then MessageDlg('Nada selecionado para filtro.', mtInformation, [mbOK], 0);
+end;
+
+end.

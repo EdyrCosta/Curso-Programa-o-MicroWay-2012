@@ -1,0 +1,57 @@
+unit UCidades;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin, dblookup, Mask;
+
+type
+  TfrmCidades = class(TfrmCadastro)
+    lblCodigo: TLabel;
+    lblNome: TLabel;
+    lblEstado: TLabel;
+    dbeCodigo: TDBEdit;
+    dbeNome: TDBEdit;
+    dsEstado: TDataSource;
+    dblEstado: TDBLookupComboBox;
+    procedure FormActivate(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+    procedure btSalvarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCidades: TfrmCidades;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmCidades.btNovoClick(Sender: TObject);
+begin
+  inherited;
+  dsGenerico.DataSet.FieldByName('CODIGO_CIDADE').AsInteger := 0;
+  dbeNome.SetFocus;
+end;
+
+procedure TfrmCidades.btSalvarClick(Sender: TObject);
+begin
+  inherited;
+  dbeCodigo.SetFocus;
+end;
+
+procedure TfrmCidades.FormActivate(Sender: TObject);
+begin
+  inherited;
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlCidades,dmPrincipal.cdsCidades,'CIDADES','NOME_CIDADE');
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlEstados,dmPrincipal.cdsEstados,'ESTADOS','NOME_ESTADO');
+end;
+
+end.

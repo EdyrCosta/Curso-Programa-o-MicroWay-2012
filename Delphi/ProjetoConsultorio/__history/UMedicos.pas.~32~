@@ -1,0 +1,139 @@
+unit UMedicos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin, Mask, FMTBcd, SqlExpr, DBClient, Provider;
+
+type
+  TfrmCadastro1 = class(TfrmCadastro)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    dbeCodigo: TDBEdit;
+    dbeNome: TDBEdit;
+    dbeCRM: TDBEdit;
+    dbeDtCadastro: TDBEdit;
+    dbeDtAlteracao: TDBEdit;
+    PageControl1: TPageControl;
+    tabDados: TTabSheet;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label8: TLabel;
+    dbeCPF: TDBEdit;
+    dbeRG: TDBEdit;
+    dbeDtNascimento: TDBEdit;
+    dbrgSexo: TDBRadioGroup;
+    dbcmEstadoCivil: TDBComboBox;
+    dbmObservacao: TDBMemo;
+    TabSheet1: TTabSheet;
+    dbeEndereco: TDBEdit;
+    Label11: TLabel;
+    Label12: TLabel;
+    dbeBairro: TDBEdit;
+    Label13: TLabel;
+    dblCidade: TDBLookupComboBox;
+    Label14: TLabel;
+    dbeCEP: TDBEdit;
+    Label15: TLabel;
+    dbeTelefone: TDBEdit;
+    Label16: TLabel;
+    dbeEmail: TDBEdit;
+    Label17: TLabel;
+    dbeCelular: TDBEdit;
+    dsCidades: TDataSource;
+    Especializações: TTabSheet;
+    DBGrid1: TDBGrid;
+    sqlEspecializacoes: TSQLQuery;
+    dspEspecializacoes: TDataSetProvider;
+    cdsEspecializacoes: TClientDataSet;
+    dsEspecializacoes: TDataSource;
+    procedure dsGenericoDataChange(Sender: TObject; Field: TField);
+    procedure FormActivate(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+    procedure btSalvarClick(Sender: TObject);
+    procedure sbtPesquisarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastro1: TfrmCadastro1;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmCadastro1.btNovoClick(Sender: TObject);
+begin
+  inherited;
+  dsGenerico.DataSet.FieldByName('CODIGO_MEDICO').AsInteger := 0;
+  dbeNome.SetFocus;
+  PageControl1.ActivePageIndex := 0;
+end;
+
+procedure TfrmCadastro1.btSalvarClick(Sender: TObject);
+begin
+  inherited;
+  dbeNome.SetFocus;
+end;
+
+procedure TfrmCadastro1.dsGenericoDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  cdsEspecializacoes.Close;
+  sqlEspecializacoes.Params[0].AsInteger := dmPrincipal.cdsMedicosCODIGO_MEDICO.AsInteger;
+  sqlEspecializacoes.ExecSQL;
+  cdsEspecializacoes.Open;
+end;
+
+procedure TfrmCadastro1.FormActivate(Sender: TObject);
+begin
+  inherited;
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlMedicos,
+        dmPrincipal.cdsMedicos, 'MEDICOS', 'NOME_MEDICO');
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlCidades,
+        dmPrincipal.cdsMedicos, 'CIDADES', 'NOME_CIDADE')
+  edtConsulta.Clear;
+  PageControl1.ActivePageIndex := 0;
+end;
+
+procedure TfrmCadastro1.sbtPesquisarClick(Sender: TObject);
+var campo : string;
+begin
+  inherited;
+  dmPrincipal.cdsMedicos.Close;
+  dmPrincipal.sqlMedicos.SQL.Clear;
+  dmPrincipal.sqlMedicos.Params.Clear;
+  dmPrincipal.sqlMedicos.SQL.Add('SELECT * FROM MEDICOS WHERE ');
+
+  CAMPO := UpperCase(cbxConsulta.Items[cbxConsulta.ItemIndex]);
+
+  case cbxTipoConsulta.ItemIndex of
+    0: begin
+      if TipoDado = 1
+        then dmPrincipal.sqlMedicos.sql.Add(campo + ' = ' + edtConsulta.Text);
+      if TipoDado = 2
+        then dmPrincipal.sqlMedicos.SQL.Add(campo + ' LIKE ' + CHR(39) + edtConsulta.Text + CHR(39));
+      if TipoDado = 3
+        then dmPrincipal.sqlMedicos.SQL.Add(campo + ' = ' + CHR(39) + edtConsulta.Text + CHR(39));
+    end;
+    1: dmPrincipal.sqlMedicos.SQL.Add(campo + ' LIKE ' + CHR(39) + UpperCase(edtConsulta.Text) + '%' + CHR(39));
+    2: dmPrincipal.sqlMedicos.SQL.Add(campo + ' LIKE ' + CHR(39) + '%' + UpperCase(edtConsulta.Text) + '%' + CHR(39));
+  end;
+
+  dmPrincipal.cdsMedicos.Open;
+  if dmPrincipal.cdsMedicos.IsEmpty
+    then MessageDlg('Nada selecionado para filtro.', mtInformation, [mbOK], 0);
+end;
+end.

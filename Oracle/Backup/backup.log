@@ -1,0 +1,60 @@
+
+Conectado a: Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+Exportação executada no conjunto de caracteres de WE8MSWIN1252  e no conjunto de caracteres de AL16UTF16 NCHAR
+co servidor usa AL32UTF8 conjunto de caracteres (conversão de conjunto de caracteres possível)
+
+Sobre exportar usuários especificados ...
+. exportando objetos e ações procedurais anteriores ao esquema
+. exportando os nomes da biblioteca de função externa para usuário MAT54009 
+. exportando sinônimos do tipo PÚBLICO
+. exportando sinônimos do tipo privado
+. exportando definições de tipos de objeto para usuário MAT54009 
+Sobre exportar objetos de MAT54009 ...
+. exportando vínculos de banco de dados
+. exportando números de seqüência
+. exportando definições de cluster
+. sobre exportar tabelas de MAT54009 ... via Caminho Convencional ...
+. . exportando tabela                     CATEGORIAS          5 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                        CIDADES         18 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                    FORMASENVIO          4 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                    FORMASPAGTO          4 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                   ITENSPEDIDOS          7 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                        PEDIDOS          4 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                       PRODUTOS         14 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. . exportando tabela                     TABLETESTE          0 linhas exportadas
+. . exportando tabela                       USUARIOS          4 linhas exportadas
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+EXP-00091: Exportando estatísticas questionáveis.
+. exportando sinônimos
+. exportando views
+. exportando procedimentos armazenados
+. exportando operadores
+. exportando restrições referenciais de integridade
+. exportando gatilhos
+. exportando tipos de índices
+. exportando índices funcionais, extensíveis e de bitmap
+. exportando ações contabilizáveis
+. exportando views materializadas
+. exportando logs de snapshot
+. exportando filas de serviço
+. exportando filhos e grupos de renovação
+. exportando dimensões
+. exportando objetos e ações procedurais posteriores ao esquema
+. exportando estatística
+Exportação encerrada com êxito, sem advertências.

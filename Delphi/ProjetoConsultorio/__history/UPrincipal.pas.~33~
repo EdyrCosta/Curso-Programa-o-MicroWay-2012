@@ -1,0 +1,114 @@
+unit UPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ImgList, ExtCtrls, ToolWin, ComCtrls, pngimage;
+
+type
+  TfrmPrincipal = class(TForm)
+    mnuPrincipal: TMainMenu;
+    tbPrincipal: TToolBar;
+    imgFundo: TImage;
+    imgPrincipal: TImageList;
+    C1: TMenuItem;
+    Pacientes1: TMenuItem;
+    Mdicos1: TMenuItem;
+    Convnios1: TMenuItem;
+    Especializaes1: TMenuItem;
+    Cidades1: TMenuItem;
+    Estados1: TMenuItem;
+    Movimentaes1: TMenuItem;
+    Consultas1: TMenuItem;
+    tbtPacientes: TToolButton;
+    tbtMedicos: TToolButton;
+    tbSeparator1: TToolButton;
+    tbtConvenios: TToolButton;
+    tbtEspecializacoes: TToolButton;
+    tbSeparator2: TToolButton;
+    tbtConsultas: TToolButton;
+    tbtSair: TToolButton;
+    procedure Estados1Click(Sender: TObject);
+    procedure tbtSairClick(Sender: TObject);
+    procedure Cidades1Click(Sender: TObject);
+    procedure Convnios1Click(Sender: TObject);
+    procedure tbtConveniosClick(Sender: TObject);
+    procedure tbtEspecializacoesClick(Sender: TObject);
+    procedure Especializaes1Click(Sender: TObject);
+    procedure tbtPacientesClick(Sender: TObject);
+    procedure Pacientes1Click(Sender: TObject);
+    procedure tbtMedicosClick(Sender: TObject);
+    procedure Mdicos1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses UEstados, UCidades, UConvenios, UEspecializacoes, UPacientes, UMedicos,
+  UEspecializacoesMedicas;
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.Cidades1Click(Sender: TObject);
+begin
+  frmCidades.ShowModal;
+end;
+
+procedure TfrmPrincipal.Convnios1Click(Sender: TObject);
+begin
+  frmConvenios.ShowModal;
+end;
+
+procedure TfrmPrincipal.Especializaes1Click(Sender: TObject);
+begin
+  frmEspecializacoes.ShowModal;
+end;
+
+procedure TfrmPrincipal.Estados1Click(Sender: TObject);
+begin
+  frmEstados.ShowModal;
+end;
+
+procedure TfrmPrincipal.Mdicos1Click(Sender: TObject);
+begin
+  frmMedicos.ShowModal;
+end;
+
+procedure TfrmPrincipal.Pacientes1Click(Sender: TObject);
+begin
+  frmPacientes.ShowModal;
+end;
+
+procedure TfrmPrincipal.tbtConveniosClick(Sender: TObject);
+begin
+  frmConvenios.ShowModal;
+end;
+
+procedure TfrmPrincipal.tbtEspecializacoesClick(Sender: TObject);
+begin
+  frmEspecializacoes.ShowModal;
+end;
+
+procedure TfrmPrincipal.tbtMedicosClick(Sender: TObject);
+begin
+  frmMedicos.ShowModal;
+end;
+
+procedure TfrmPrincipal.tbtPacientesClick(Sender: TObject);
+begin
+  frmPacientes.ShowModal;
+end;
+
+procedure TfrmPrincipal.tbtSairClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+end.

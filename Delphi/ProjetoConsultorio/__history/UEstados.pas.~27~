@@ -1,0 +1,92 @@
+unit UEstados;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin, Mask;
+
+type
+  TfrmEstados = class(TfrmCadastro)
+    lblCodigo: TLabel;
+    lblNome: TLabel;
+    lblSigla: TLabel;
+    dbeCodigo: TDBEdit;
+    dbeNome: TDBEdit;
+    dbeSigla: TDBEdit;
+    DBEdit1: TDBEdit;
+    procedure FormActivate(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+    procedure btSalvarClick(Sender: TObject);
+    procedure sbtPesquisarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmEstados: TfrmEstados;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmEstados.btNovoClick(Sender: TObject);
+begin
+  inherited;
+  dsGenerico.DataSet.FieldByName('CODIGO_ESTADO').AsInteger := 0;
+  dbeNome.SetFocus;
+end;
+
+procedure TfrmEstados.btSalvarClick(Sender: TObject);
+begin
+  inherited;
+  dbeCodigo.SetFocus;
+end;
+
+procedure TfrmEstados.FormActivate(Sender: TObject);
+begin
+  inherited;
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlEstados,
+  dmPrincipal.cdsEstados, 'Estados','Nome_Estado');
+  edtConsulta.Clear;
+end;
+
+procedure TfrmEstados.sbtPesquisarClick(Sender: TObject);
+var campo : string;
+begin
+  inherited;
+  dmPrincipal.cdsEstados.Close;
+  dmPrincipal.sqlEstados.SQL.Clear;
+  dmPrincipal.sqlEstados.Params.Clear;
+  dmPrincipal.sqlEstados.SQL.Add('SELECT FROM ESTADOS WHERE');
+  campo := UpperCase(cbxConsulta.Items[cbxConsulta.ItemIndex]);
+
+  case cbxConsulta.ItemIndex of
+    0: begin
+      if TipoDado = 1
+        then dmPrincipal.sqlEstados.SQL.Add(campo + ' = ' + edtConsulta.Text);
+      if TipoDado = 2
+        then dmPrincipal.sqlEstados.SQL.Add(campo + ' LIKE ' + CHR(39) +
+                edtConsulta.Text + CHR(39));
+      if TipoDado = 3
+        then dmPrincipal.sqlEstados.SQL.Add(campo + ' = ' + CHR(39) +
+                edtConsulta.Text + CHR(39));
+    end;
+
+    1: dmPrincipal.sqlEstados.SQL.Add(campo + ' LIKE ' + CHR(39) +
+                UpperCase(edtConsulta.Text) + '%' + CHR(39));
+
+    2: dmPrincipal.sqlEstados.SQL.Add(campo + ' LIKE ' + CHR(39) +
+                '%' + UpperCase(edtConsulta.Text) + '%' + CHR(39));
+  end;
+
+  dmPrincipal.cdsEstados.Open;
+  if dmPrincipal.cdsEstados.IsEmpty
+     then MessageDlg('Nada selecionado para filtro.', mtInformation, [mbOK], 0);
+end;
+end.

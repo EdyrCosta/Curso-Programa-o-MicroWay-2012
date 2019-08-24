@@ -1,0 +1,460 @@
+﻿inherited frmCadastro1: TfrmCadastro1
+  Caption = 'M'#233'dicos'
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited tbCadastro: TToolBar
+    inherited dbnCadstro: TDBNavigator
+      Hints.Strings = ()
+    end
+    inherited btNovo: TToolButton
+      ImageIndex = 0
+    end
+  end
+  inherited gbxCadastro: TGroupBox
+    Height = 291
+    ExplicitHeight = 291
+    object Label1: TLabel
+      Left = 15
+      Top = 15
+      Width = 33
+      Height = 13
+      Caption = 'C'#243'digo'
+    end
+    object Label2: TLabel
+      Left = 161
+      Top = 15
+      Width = 27
+      Height = 13
+      Caption = 'Nome'
+    end
+    object Label3: TLabel
+      Left = 15
+      Top = 45
+      Width = 22
+      Height = 13
+      Caption = 'CRM'
+    end
+    object Label4: TLabel
+      Left = 161
+      Top = 45
+      Width = 70
+      Height = 13
+      Caption = 'Data Cadastro'
+    end
+    object Label5: TLabel
+      Left = 375
+      Top = 45
+      Width = 72
+      Height = 13
+      Caption = 'Data Altera'#231#227'o'
+    end
+    object dbeCodigo: TDBEdit
+      Left = 54
+      Top = 14
+      Width = 83
+      Height = 21
+      DataField = 'CODIGO_MEDICO'
+      DataSource = dsGenerico
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object dbeNome: TDBEdit
+      Left = 194
+      Top = 14
+      Width = 320
+      Height = 21
+      CharCase = ecUpperCase
+      DataField = 'NOME_MEDICO'
+      DataSource = dsGenerico
+      TabOrder = 1
+    end
+    object dbeCRM: TDBEdit
+      Left = 43
+      Top = 42
+      Width = 94
+      Height = 21
+      CharCase = ecUpperCase
+      DataField = 'CRM_MEDICO'
+      DataSource = dsGenerico
+      TabOrder = 2
+    end
+    object dbeDtCadastro: TDBEdit
+      Left = 237
+      Top = 42
+      Width = 121
+      Height = 21
+      DataField = 'DT_CADASTRO_MEDICO'
+      DataSource = dsGenerico
+      TabOrder = 3
+    end
+    object dbeDtAlteracao: TDBEdit
+      Left = 453
+      Top = 42
+      Width = 121
+      Height = 21
+      DataField = 'DT_ALTERACOES_MEDICO'
+      DataSource = dsGenerico
+      TabOrder = 4
+    end
+    object PageControl1: TPageControl
+      Left = 15
+      Top = 70
+      Width = 558
+      Height = 215
+      ActivePage = Especializações
+      TabOrder = 5
+      object tabDados: TTabSheet
+        Caption = 'Dados Pessoais'
+        ExplicitLeft = -15
+        ExplicitTop = 34
+        object Label6: TLabel
+          Left = 289
+          Top = 10
+          Width = 96
+          Height = 13
+          Caption = 'Data de Nascimento'
+        end
+        object Label7: TLabel
+          Left = 5
+          Top = 78
+          Width = 55
+          Height = 13
+          Caption = 'Estado Civil'
+        end
+        object Label9: TLabel
+          Left = 345
+          Top = 48
+          Width = 14
+          Height = 13
+          Caption = 'RG'
+        end
+        object Label10: TLabel
+          Left = 5
+          Top = 10
+          Width = 19
+          Height = 13
+          Caption = 'CPF'
+        end
+        object Label8: TLabel
+          Left = 5
+          Top = 120
+          Width = 63
+          Height = 13
+          Caption = 'Observa'#231#245'es'
+        end
+        object dbeCPF: TDBEdit
+          Left = 30
+          Top = 7
+          Width = 121
+          Height = 21
+          DataField = 'CPF_MEDICO'
+          DataSource = dsGenerico
+          TabOrder = 0
+        end
+        object dbeRG: TDBEdit
+          Left = 365
+          Top = 42
+          Width = 121
+          Height = 21
+          DataField = 'RG_MEDICO'
+          DataSource = dsGenerico
+          TabOrder = 1
+        end
+        object dbeDtNascimento: TDBEdit
+          Left = 391
+          Top = 6
+          Width = 103
+          Height = 21
+          DataField = 'DT_NASCIMENTO_MEDICO'
+          DataSource = dsGenerico
+          TabOrder = 3
+        end
+        object dbrgSexo: TDBRadioGroup
+          Left = 6
+          Top = 34
+          Width = 185
+          Height = 33
+          Caption = 'Sexo'
+          Columns = 2
+          DataField = 'SEXO_MEDICO'
+          DataSource = dsGenerico
+          Items.Strings = (
+            'Masculino'
+            'Feminino')
+          ParentBackground = True
+          TabOrder = 2
+          Values.Strings = (
+            'M'
+            'F')
+        end
+        object dbcmEstadoCivil: TDBComboBox
+          Left = 66
+          Top = 76
+          Width = 145
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'ESTADO_CIVIL_MEDICO'
+          DataSource = dsGenerico
+          ItemHeight = 13
+          Items.Strings = (
+            'SOLTEIRO'
+            'CASADO'
+            'SEPARADO'
+            'DIVORCIADO'
+            'VI'#218'VO'
+            'UNI'#195'O EST'#193'VEL')
+          TabOrder = 4
+        end
+        object dbmObservacao: TDBMemo
+          Left = 74
+          Top = 109
+          Width = 420
+          Height = 75
+          DataField = 'OBSERVACOES_MEDICO'
+          DataSource = dsGenerico
+          TabOrder = 5
+        end
+      end
+      object TabSheet1: TTabSheet
+        Caption = 'Contato'
+        ImageIndex = 1
+        object Label11: TLabel
+          Left = 18
+          Top = 6
+          Width = 52
+          Height = 13
+          Caption = 'Endere'#231'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label12: TLabel
+          Left = 36
+          Top = 38
+          Width = 34
+          Height = 13
+          Caption = 'Bairro'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label13: TLabel
+          Left = 32
+          Top = 65
+          Width = 38
+          Height = 13
+          Caption = 'Cidade'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label14: TLabel
+          Left = 50
+          Top = 84
+          Width = 20
+          Height = 13
+          Caption = 'CEP'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label15: TLabel
+          Left = 21
+          Top = 116
+          Width = 49
+          Height = 13
+          Caption = 'Telefone'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label16: TLabel
+          Left = 34
+          Top = 144
+          Width = 36
+          Height = 13
+          Caption = 'e-mail'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label17: TLabel
+          Left = 251
+          Top = 111
+          Width = 39
+          Height = 13
+          Caption = 'Celular'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object dbeEndereco: TDBEdit
+          Left = 76
+          Top = 3
+          Width = 397
+          Height = 21
+          DataField = 'ENDERECO_MEDICO'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object dbeBairro: TDBEdit
+          Left = 76
+          Top = 30
+          Width = 397
+          Height = 21
+          DataField = 'BAIRRO_MEDICO'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object dblCidade: TDBLookupComboBox
+          Left = 76
+          Top = 57
+          Width = 145
+          Height = 21
+          DataField = 'CIDADE_MEDICO'
+          DataSource = dsGenerico
+          KeyField = 'CODIGO_CIDADE'
+          ListField = 'NOME_CIDADE'
+          ListSource = dsCidades
+          TabOrder = 2
+        end
+        object dbeCEP: TDBEdit
+          Left = 76
+          Top = 84
+          Width = 153
+          Height = 21
+          DataField = 'CEP_MEDICO'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object dbeTelefone: TDBEdit
+          Left = 76
+          Top = 111
+          Width = 153
+          Height = 21
+          DataField = 'TELEFONE_MEDICO'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object dbeEmail: TDBEdit
+          Left = 76
+          Top = 138
+          Width = 397
+          Height = 21
+          DataField = 'EMAIL_MEDICO'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 6
+        end
+        object dbeCelular: TDBEdit
+          Left = 296
+          Top = 103
+          Width = 153
+          Height = 21
+          DataField = 'CELULAR_MEDICO'
+          DataSource = dsGenerico
+          ReadOnly = True
+          TabOrder = 5
+        end
+      end
+      object Especializações: TTabSheet
+        Caption = 'Especializa'#231#245'es'
+        ImageIndex = 2
+      end
+    end
+  end
+  object DBGrid1: TDBGrid [3]
+    Left = 40
+    Top = 152
+    Width = 529
+    Height = 161
+    ReadOnly = True
+    TabOrder = 3
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        Title.Caption = 'Especializacao'
+        Visible = True
+      end>
+  end
+  inherited dsGenerico: TDataSource
+    DataSet = dmPrincipal.cdsMedicos
+    OnDataChange = dsGenericoDataChange
+  end
+  object dsCidades: TDataSource
+    DataSet = dmPrincipal.cdsCidades
+    Left = 504
+    Top = 216
+  end
+  object sqlEspecializacoes: TSQLQuery
+    DataSource = dsGenerico
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = '-1'
+      end>
+    SQL.Strings = (
+      'SELECT nome_medico, nome_especializacao'
+      'FROM especializacoes_medicos, medicos, especializacoes'
+      
+        'WHERE especializacoes_medicos.codigo_medico = medicos.codigo_med' +
+        'ico'
+      
+        'AND especializacoes_medicos.codigo_especializacao = especializac' +
+        'oes.codigo_especializacao'
+      'AND especializacoes_medicos.codigo_medico =: codigo_medico')
+    SQLConnection = dmPrincipal.sqlConexaoDB
+    Left = 424
+    Top = 216
+  end
+  object dspEspecializacoes: TDataSetProvider
+    DataSet = sqlEspecializacoes
+    Left = 328
+    Top = 216
+  end
+  object cdsEspecializacoes: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEspecializacoes'
+    Left = 224
+    Top = 216
+  end
+  object dsEspecializacoes: TDataSource
+    DataSet = cdsEspecializacoes
+    Left = 128
+    Top = 216
+  end
+end

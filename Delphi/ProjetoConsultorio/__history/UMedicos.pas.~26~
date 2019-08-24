@@ -1,0 +1,92 @@
+unit UMedicos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadastro, ImgList, DB, Grids, DBGrids, StdCtrls, Buttons, ComCtrls,
+  ExtCtrls, DBCtrls, ToolWin, Mask, FMTBcd, SqlExpr, DBClient, Provider;
+
+type
+  TfrmCadastro1 = class(TfrmCadastro)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    dbeCodigo: TDBEdit;
+    dbeNome: TDBEdit;
+    dbeCRM: TDBEdit;
+    dbeDtCadastro: TDBEdit;
+    dbeDtAlteracao: TDBEdit;
+    PageControl1: TPageControl;
+    tabDados: TTabSheet;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label8: TLabel;
+    dbeCPF: TDBEdit;
+    dbeRG: TDBEdit;
+    dbeDtNascimento: TDBEdit;
+    dbrgSexo: TDBRadioGroup;
+    dbcmEstadoCivil: TDBComboBox;
+    dbmObservacao: TDBMemo;
+    TabSheet1: TTabSheet;
+    dbeEndereco: TDBEdit;
+    Label11: TLabel;
+    Label12: TLabel;
+    dbeBairro: TDBEdit;
+    Label13: TLabel;
+    dblCidade: TDBLookupComboBox;
+    Label14: TLabel;
+    dbeCEP: TDBEdit;
+    Label15: TLabel;
+    dbeTelefone: TDBEdit;
+    Label16: TLabel;
+    dbeEmail: TDBEdit;
+    Label17: TLabel;
+    dbeCelular: TDBEdit;
+    dsCidades: TDataSource;
+    Especializações: TTabSheet;
+    DBGrid1: TDBGrid;
+    sqlEspecializacoes: TSQLQuery;
+    dspEspecializacoes: TDataSetProvider;
+    cdsEspecializacoes: TClientDataSet;
+    dsEspecializacoes: TDataSource;
+    procedure dsGenericoDataChange(Sender: TObject; Field: TField);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastro1: TfrmCadastro1;
+
+implementation
+
+uses UDMPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmCadastro1.dsGenericoDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  cdsEspecializacoes.Close;
+  sqlEspecializacoes.Params[0].AsInteger := dmPrincipal.cdsMedicosCODIGO_MEDICO.AsInteger;
+  sqlEspecializacoes.ExecSQL;
+  cdsEspecializacoes.Open;
+end;
+
+procedure TfrmCadastro1.FormActivate(Sender: TObject);
+begin
+  inherited;
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlMedicos,
+        dmPrincipal.cdsMedicos, 'MEDICOS', 'NOME_MEDICO');
+  dmPrincipal.CarregarTodos(dmPrincipal.sqlCidades,
+        dmPrincipal.cdsMedicos, 'CIDADES', 'NOME_CIDADE');
+end;
+
+end.
