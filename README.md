@@ -3,6 +3,7 @@
 ### Certificado
 https://1drv.ms/b/s!As0rZFNB6_RLpRo690mXxsQm7nFz
 ### Conteúdo
+* Algoritmos
 * Access 2007
 * Delphi 2009
 * Lógica de Programação
